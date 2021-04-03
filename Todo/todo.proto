@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package todo;
+
+message TodoItem{
+	string id = 1;
+	string name = 2;
+	google.protobuf.Timestamp deadline = 3;
+}
+
+message AddTodoItemRequest{
+	TodoItem TodoItem = 1;
+}
+
+message AddTodoItemResponse{
+	TodoItem TodoItem = 1;
+	bool IsSuccess = 2;
+}
+
+
+message FindTodoItemRequest{
+	string TodoId = 1;
+}
+
+message FindTodoItemResponse{
+	TodoItem TodoItem = 1;
+}
+
+message ListAllItemRequest{
+
+}
+
+message ListAllItemResponse{
+	repeated TodoItem AllTodoItems = 1;
+}
+
+message DeleteItemRequest{
+	string TodoId = 1;
+}
+
+message DeleteItemResponse{
+	bool IsDeleted = 1;
+}
+
+message UpdateItemRequest{
+	TodoItem TodoItem = 1;
+}
+
+message UpdateItemResponse{
+	bool IsUpdated= 1;
+}
+
+service TodoItemService{
+	rpc Add(AddTodoItemRequest) returns(AddTodoItemResponse){};
+	rpc Find(FindTodoItemRequest) returns(FindTodoItemResponse){};
+	rpc ListAll(ListAllItemRequest) returns(ListAllItemResponse);
+	rpc Delete(DeleteItemRequest) returns(DeleteItemResponse);
+	rpc Update(UpdateItemRequest) returns(UpdateItemResponse);
+}
